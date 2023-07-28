@@ -4,9 +4,9 @@ source $TEST_DIR/common
 
 MY_DIR=$(readlink -f `dirname "${BASH_SOURCE[0]}"`)
 
-RESOURCEDIR="${MY_DIR}/../resources/ray"
+RESOURCEDIR="${MY_DIR}/../resources"
 
-source ${MY_DIR}/../resources/codeflare-stack/util
+source ${MY_DIR}/../util
 
 os::test::junit::declare_suite_start "$MY_SCRIPT"
 
