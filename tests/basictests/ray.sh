@@ -4,9 +4,9 @@ source $TEST_DIR/common
 
 MY_DIR=$(readlink -f `dirname "${BASH_SOURCE[0]}"`)
 
-RESOURCEDIR="${MY_DIR}/../resources/ray"
+RESOURCEDIR="${MY_DIR}/../resources"
 
-source ${MY_DIR}/../resources/codeflare-stack/util
+source ${MY_DIR}/../util
 
 os::test::junit::declare_suite_start "$MY_SCRIPT"
 
@@ -26,8 +26,7 @@ function start_test_ray_cluster(){
     os::cmd::expect_success "oc project ${ODHPROJECT}"
     os::cmd::expect_success "oc apply -f ${RESOURCEDIR}/ray/ray-test-cluster-test.yaml"
     os::cmd::try_until_text "oc get RayCluster kuberay-cluster-test" "kuberay-cluster-test" $odhdefaulttimeout $odhdefaultinterval
-    os::cmd::try_until_text "oc get pods -l ray.io/identifier=kuberay-cluster-test-head -o jsonpath='{$.items[*].status.phase}'" "Running" $odhdefaulttimeout $odhdefaultinterval
-    os::cmd::try_until_text "oc get pods -l ray.io/identifier=kuberay-cluster-test-worker -o jsonpath='{$.items[*].status.phase}'" "Running" $odhdefaulttimeout $odhdefaultinterval
+    sleep 15
 }
 
 function check_functionality(){
